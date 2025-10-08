@@ -1,0 +1,142 @@
+{
+  "condition": "(http_get_method and (xss_script_tags or xss_event_handlers or xss_javascript_protocol or xss_encoded_payloads or xss_modern_bypasses or xss_html_tags)) and not filter_legitimate", 
+  "xss_event_handlers": {
+    "request_path|contains": [
+      "onerror=", 
+      "onerror%3D", 
+      "onload=", 
+      "onload%3D", 
+      "onclick=", 
+      "onclick%3D", 
+      "onmouseover=", 
+      "onmouseenter=", 
+      "onmouseleave=", 
+      "onfocus=", 
+      "onblur=", 
+      "onresize=", 
+      "onscroll=", 
+      "onunload=", 
+      "onpagehide=", 
+      "onpageshow=", 
+      "onreadystatechange=", 
+      "onmousedown=", 
+      "onmouseup=", 
+      "autofocus", 
+      "accesskey=", 
+      "accesskey%3D"
+    ]
+  }, 
+  "xss_encoded_payloads": {
+    "request_path|contains": [
+      "%2527onclick%253D", 
+      "%2522onclick%253D", 
+      "javascript%253A", 
+      "alert%2528", 
+      "prompt%2528", 
+      "eval%2528", 
+      "%253C%252Fscript%253E", 
+      "window%5B%27pro%27%252B%27mpt%27%5D"
+    ]
+  }, 
+  "xss_html_tags": {
+    "request_path|contains": [
+      "<img", 
+      "%3Cimg", 
+      "<iframe", 
+      "%3Ciframe", 
+      "<svg", 
+      "%3Csvg", 
+      "<audio", 
+      "<video", 
+      "<body", 
+      "<object", 
+      "<title", 
+      "<frameset", 
+      "<html", 
+      "<style", 
+      "src=", 
+      "type=\"hidden\"", 
+      "type%3D%22hidden%22"
+    ]
+  }, 
+  "http_get_method": {
+    "http_method": [
+      "GET", 
+      "POST"
+    ]
+  }, 
+  "filter_legitimate": {
+    "request_path|contains": [
+      ".js", 
+      ".css", 
+      ".png", 
+      ".jpg", 
+      ".jpeg", 
+      ".gif", 
+      ".ico", 
+      ".svg", 
+      ".woff", 
+      ".ttf", 
+      "/static/", 
+      "/assets/", 
+      "/public/", 
+      "/cdn/"
+    ]
+  }, 
+  "xss_modern_bypasses": {
+    "request_path|contains": [
+      "\"-prompt(8)-\"", 
+      "'-prompt(8)-'", 
+      "\";a=prompt,a()//", 
+      "';a=prompt,a()//", 
+      "window['pro'+'mpt']", 
+      "window[`pro`+`mpt`]", 
+      "String.fromCharCode", 
+      "fromCharCode", 
+      "unescape", 
+      "decodeURI", 
+      "decodeURIComponent", 
+      "atob(", 
+      "btoa(", 
+      "&#x", 
+      "&#", 
+      "<", 
+      ">", 
+      "\"", 
+      "'"
+    ]
+  }, 
+  "xss_script_tags": {
+    "request_path|contains": [
+      "</script>", 
+      "<script", 
+      "%3Cscript%3E", 
+      "%3C/script%3E", 
+      "%253Cscript%253E", 
+      "%253C/script%253E", 
+      "%3E%3Cscript%3E"
+    ]
+  }, 
+  "xss_javascript_protocol": {
+    "request_path|contains": [
+      "javascript:", 
+      "javascript%3A", 
+      "javascript:alert", 
+      "alert(", 
+      "alert%28", 
+      "prompt(", 
+      "prompt%28", 
+      "confirm(", 
+      "confirm%28", 
+      "eval(", 
+      "eval%28", 
+      "document.cookie", 
+      "document.domain", 
+      "document.write", 
+      "window.location", 
+      "${alert", 
+      "${prompt", 
+      "${eval"
+    ]
+  }
+}
