@@ -1,4 +1,5 @@
 locals {
+
   today_date = formatdate("YYYY-MM-DD", timestamp())
 
   sa_custom_rules = [
