@@ -1,4 +1,4 @@
-####
+###
 opensearch_api = "https://opsi-klp.starixplay.com"
 
 sa_custom_rules = [
