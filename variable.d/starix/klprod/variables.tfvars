@@ -29,7 +29,40 @@ sa_custom_rules = [
       "Content management systems with rich text editors",
       "Development/staging environments with test payloads",
     ]
-  }
+  },
+  {
+    rule_name           = "SQL-Injection-Strings-Detection"
+    category            = "waf"
+    detection_rule_file = "sql-injection.json"
+    level               = "high"
+    status              = "stable"
+    description         = "Combined detection of SQL injection attempts via HTTP GET requests in access logs. Includes union-based, boolean-based, time-based, error-based, stacked queries, numeric-based, database fingerprinting, and encoded techniques from two rule sources."
+    references = [
+      "https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/",
+      "https://www.acunetix.com/blog/articles/using-logs-to-investigate-a-web-application-attack/",
+      "https://brightsec.com/blog/sql-injection-payloads/",
+      "https://github.com/payloadbox/sql-injection-payload-list",
+      "https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection",
+    ]
+    tags = [
+      "attack.initial_access",
+      "attack.t1190",
+      "attack.owasp.a03",
+      "attack.injection",
+      "attack.sqli",
+    ]
+    fpositives = [
+      "Java scripts and CSS Files",
+      "User searches in search boxes of the respective website",
+      "Internal vulnerability scanners",
+      "Database administration tools and legitimate database queries",
+      "Content management systems with dynamic queries",
+      "Docker registry requests and container image manifests",
+      "API endpoints with SHA256 hashes and UUIDs",
+      "Git commit hashes and version identifiers",
+      "Legitimate search queries with special characters",
+    ],
+  },
 ]
 
 # REQUIRED VARIABLE SET [opensearch_cred]

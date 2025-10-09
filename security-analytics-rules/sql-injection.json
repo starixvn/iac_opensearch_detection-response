@@ -1,0 +1,297 @@
+{
+  "condition": "http_request_method and (sqli_basic_patterns or sqli_union_based or sqli_encoded_patterns or sqli_comment_based or sqli_stacked_queries or sqli_boolean_based or sqli_time_based or sqli_error_based or sqli_database_fingerprinting or sqli_numeric_based) and not (filter_legitimate or filter_docker_registry or filter_api_endpoints or filter_search_queries)", 
+  "sqli_database_fingerprinting": {
+    "request_path|contains": [
+      "conv('a',16,2)", 
+      "connection_id()", 
+      "crc32('MySQL')", 
+      "MYSQL", 
+      "BINARY_CHECKSUM(", 
+      "@@CONNECTIONS", 
+      "@@CPU_BUSY", 
+      "USER_ID(", 
+      "MSSQL", 
+      "ROWNUM=ROWNUM", 
+      "RAWTOHEX(", 
+      "LNNVL(", 
+      "ORACLE", 
+      "5::int", 
+      "pg_client_encoding()", 
+      "current_database()", 
+      "quote_literal(", 
+      "POSTGRESQL", 
+      "sqlite_version()", 
+      "last_insert_rowid()", 
+      "SQLITE", 
+      "MSACCESS"
+    ]
+  }, 
+  "sqli_stacked_queries": {
+    "request_path|contains": [
+      "; DROP TABLE", 
+      "; DELETE FROM", 
+      "; INSERT INTO", 
+      "; UPDATE", 
+      "; CREATE TABLE", 
+      "; ALTER TABLE", 
+      "; EXEC", 
+      "; EXECUTE", 
+      "';SHUTDOWN--", 
+      "';EXEC xp_cmdshell", 
+      "; TRUNCATE", 
+      "; GRANT", 
+      "; REVOKE", 
+      ";%20DROP%20TABLE", 
+      ";%20DELETE%20FROM", 
+      ";%20INSERT%20INTO"
+    ]
+  }, 
+  "sqli_time_based": {
+    "request_path|contains": [
+      "sleep(5)", 
+      "sleep(10)", 
+      "pg_sleep(10)", 
+      "WAITFOR DELAY", 
+      "select%28sleep%2810%29", 
+      "1' || pg_sleep(10)", 
+      "DBMS_PIPE.RECEIVE_MESSAGE", 
+      ",(select * from (select(sleep(10)))a)", 
+      "%2c(select%20*%20from%20(select(sleep(10)))a)", 
+      "BENCHMARK(", 
+      "HEAVY_QUERY"
+    ]
+  }, 
+  "sqli_encoded_patterns": {
+    "request_path|contains": [
+      "%00", 
+      "%2D%2D", 
+      "%2D%2D%20", 
+      "%7C%7C", 
+      "%40%40", 
+      "select%20", 
+      "SELECT%20", 
+      "where%20", 
+      "WHERE%20", 
+      "having%20", 
+      "HAVING%20", 
+      "drop%20", 
+      "DROP%20", 
+      "delete%20", 
+      "DELETE%20", 
+      "insert%20", 
+      "INSERT%20", 
+      "update%20", 
+      "UPDATE%20", 
+      "exec%20", 
+      "EXEC%20", 
+      "version%28%29", 
+      "database%28%29", 
+      "user%28%29", 
+      "sleep%28", 
+      "%20or%201%3D1", 
+      "%20and%201%3D1", 
+      "%271%27%3D%271", 
+      "%221%22%3D%221", 
+      "information_schema", 
+      "mysql%2Euser", 
+      "sys%2Edatabases"
+    ]
+  }, 
+  "sqli_comment_based": {
+    "request_path|contains": [
+      "/*comment*/", 
+      "/*! MYSQL Special SQL */", 
+      "#comment", 
+      "--comment", 
+      "or%201=1", 
+      "OR%201=1", 
+      "or 1=1", 
+      "OR 1=1"
+    ]
+  }, 
+  "http_request_method": {
+    "http_method": [
+      "GET"
+    ]
+  }, 
+  "sqli_error_based": {
+    "request_path|contains": [
+      "@@version", 
+      "version()", 
+      "select version()", 
+      "select database()", 
+      "information_schema.tables", 
+      "information_schema.columns", 
+      "mysql.user", 
+      "sys.databases", 
+      "sysobjects", 
+      "syscolumns", 
+      "extractvalue(", 
+      "updatexml(", 
+      "exp(~(select*from(select"
+    ]
+  }, 
+  "sqli_basic_patterns": {
+    "request_path|contains": [
+      "@variable", 
+      "@@variable", 
+      " OR 1=2", 
+      " or 1=2", 
+      " AND 1=2", 
+      " and 1=2", 
+      "1' and 1=1", 
+      "1' AND 1=1", 
+      "1' and 1=2", 
+      "1' AND 1=2", 
+      "1' ORDER BY", 
+      "1' order by", 
+      " GROUP BY", 
+      " group by", 
+      "=0--+", 
+      "-- or #"
+    ]
+  }, 
+  "filter_legitimate": {
+    "request_path|contains": [
+      ".js", 
+      ".mp3", 
+      ".css", 
+      ".png", 
+      ".jpg", 
+      ".jpeg", 
+      ".gif", 
+      ".ico", 
+      ".svg", 
+      ".woff", 
+      ".woff2", 
+      ".ttf", 
+      ".eot", 
+      ".pdf", 
+      ".doc", 
+      ".docx", 
+      ".xls", 
+      ".xlsx", 
+      ".zip", 
+      "/goSQL/", 
+      "/gosql/", 
+      ".rar", 
+      "/static/", 
+      "/assets/", 
+      "/public/", 
+      "/cdn/", 
+      "/images/", 
+      "/img/", 
+      "/css/", 
+      "/js/", 
+      "/fonts/", 
+      "/media/"
+    ]
+  }, 
+  "filter_api_endpoints": {
+    "request_path|contains": [
+      "/api/", 
+      "/v1/", 
+      "/v2/", 
+      "/v3/", 
+      "/health", 
+      "/metrics", 
+      "/status", 
+      "/swagger/", 
+      "/openapi/", 
+      "/.well-known/", 
+      "sha1:", 
+      "md5:"
+    ]
+  }, 
+  "filter_docker_registry": {
+    "request_path|contains": [
+      "/v2/", 
+      "/manifests/", 
+      "/blobs/", 
+      "/tags/", 
+      "_catalog", 
+      "/uploads/", 
+      "sha256:"
+    ], 
+    "user_agent|contains": [
+      "docker/", 
+      "containerd/", 
+      "podman/", 
+      "skopeo/", 
+      "crane/", 
+      "regctl/"
+    ]
+  }, 
+  "sqli_union_based": {
+    "request_path|contains": [
+      "UNION SELECT", 
+      "union select", 
+      "UNION ALL SELECT", 
+      "union all select", 
+      "ORDER BY", 
+      "order by", 
+      "GROUP BY", 
+      "group by", 
+      "UNION%20SELECT", 
+      "union%20select", 
+      "UNION%20ALL%20SELECT", 
+      "union%20all%20select", 
+      "ORDER BY 1--", 
+      "order by 1--", 
+      "ORDER BY 2--", 
+      "order by 2--", 
+      "ORDER BY 3--", 
+      "order by 3--", 
+      "ORDER BY 1#", 
+      "order by 1#", 
+      "ORDER BY 2#", 
+      "order by 2#", 
+      "ORDER BY 3#", 
+      "order by 3#"
+    ]
+  }, 
+  "sqli_boolean_based": {
+    "request_path|contains": [
+      " OR 1=1--", 
+      " OR 1=0--", 
+      " OR 1=1#", 
+      " OR 1=0#", 
+      " OR x=x", 
+      " OR x=y", 
+      " AND true", 
+      " AND false", 
+      " HAVING 1=1", 
+      " HAVING 1=0", 
+      "' and 1=1--", 
+      "' and 1=2--", 
+      "' or 1=1--", 
+      "' or 1=2--", 
+      " WHERE 1=1", 
+      " WHERE 1=0"
+    ]
+  }, 
+  "filter_search_queries": {
+    "http_referer|contains": [
+      "/search", 
+      "/find", 
+      "/query"
+    ], 
+    "request_path|contains": [
+      "/search", 
+      "q=", 
+      "query=", 
+      "search=", 
+      "keyword=", 
+      "term=", 
+      "find="
+    ]
+  }, 
+  "sqli_numeric_based": {
+    "request_path|contains": [
+      "AND 1", 
+      "AND 0", 
+      "AND true", 
+      "AND false"
+    ]
+  }
+}
